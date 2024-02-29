@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Aqalnet.Infrastructure.Configurations;
 
-
 public class CompanyConfiguration : IEntityTypeConfiguration<Company>
 {
     public void Configure(EntityTypeBuilder<Company> builder)
@@ -19,6 +18,14 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
             {
                 a.Property(x => x.Street).HasColumnName("Street").IsRequired();
                 a.Property(x => x.City).HasColumnName("City").IsRequired();
+            }
+        );
+
+        builder.OwnsOne(
+            x => x.Logo,
+            a =>
+            {
+                a.Property(x => x.Url).HasColumnName("LogoUrl").IsRequired();
             }
         );
     }

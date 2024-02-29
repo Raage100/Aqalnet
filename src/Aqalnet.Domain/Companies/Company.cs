@@ -14,6 +14,8 @@ public sealed class Company : AggregateRoot
     public string CompanyName { get; private set; }
     public Address Address { get; private set; }
 
+    public Logo Logo { get; private set; }
+
     public static Company Create(string companyName, Address address)
     {
         var company = new Company(Guid.NewGuid(), companyName, address);

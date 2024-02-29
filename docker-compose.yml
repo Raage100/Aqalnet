@@ -2,13 +2,14 @@ version: '3.4'
 
 services:
   aqalnet.api:
+    container_name: aqalnet-api
     image: ${DOCKER_REGISTRY-}aqalnetapi
     build:
       context: .
       dockerfile: src/Aqalnet.Api/Dockerfile
 
   aqalnet.db:
-    container_name: mssql-db
+    container_name: aqalnet-db
     hostname: mssql-db
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
@@ -23,3 +24,5 @@ services:
       - ./data:/var/opt/mssql/data
       - ./log:/var/opt/mssql/log
       - ./secrets:/var/opt/mssql/secrets
+
+

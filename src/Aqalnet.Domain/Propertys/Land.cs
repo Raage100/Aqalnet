@@ -4,20 +4,27 @@ namespace Aqalnet.Domain.Propertys;
 
 public sealed class Land : Entity
 {
-    private Land(Guid id, Guid prorpertyId, int area)
-        : base(id)
+    private Land(Guid id, Guid propertyId, decimal area, decimal pricePerSquareMeter ):base(id)
     {
+        PropertyId = propertyId;
         Area = area;
-        PropertyId = prorpertyId;
+        PricePerSquareMeter = pricePerSquareMeter;
+       
     }
 
-    public int Area { get; private set; }
     public Guid PropertyId { get; private set; }
+    public decimal Area { get; private set; }
 
-    public static Land Create(Guid id, Guid propertyId, int area)
+    public decimal PricePerSquareMeter { get; set; }
+
+ 
+
+    public static Land Create(Guid id, Guid propertyId, decimal area, decimal pricePerSquareMeter)
     {
-        return new Land(id, propertyId, area);
+        return new Land(Guid.NewGuid(), propertyId, area,pricePerSquareMeter);
     }
 
     public Land() { }
+
+   
 }

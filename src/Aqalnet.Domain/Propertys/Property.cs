@@ -8,8 +8,6 @@ public class Property : AggregateRoot
         Guid id,
         Guid userId,
         Guid? companyId,
-        string name,
-        string description,
         decimal price,
         Address address,
         PropertyType propertyType,
@@ -21,8 +19,7 @@ public class Property : AggregateRoot
     {
         UserId = userId;
         CompanyId = companyId;
-        Name = name;
-        Description = description;
+
         Price = price;
         Address = address;
         PropertyType = propertyType;
@@ -31,12 +28,14 @@ public class Property : AggregateRoot
         Land = land;
     }
 
-    public string Name { get; private set; }
-    public string Description { get; private set; }
     public decimal Price { get; private set; }
     public Address Address { get; private set; }
     public bool IsPublished { get; private set; }
     public PropertyType PropertyType { get; private set; }
+
+    
+
+    public DateOnly DatePublished { get; private set; }
 
     public Guid UserId; // reference to the user who created the property
 
@@ -58,77 +57,93 @@ public class Property : AggregateRoot
     }
 
     public static Property CreateHouse(
-        Guid id,
         Guid userId,
         Guid companyId,
-        string name,
-        string description,
         decimal price,
         Address address,
-        bool hasGarage
+        bool hasGarage,
+        bool hasParking,
+        int numberOfRooms,
+        int numberofFloors,
+        DateOnly yearBuilt,
+        decimal plotArea,
+        decimal buildingArea,
+        decimal pricePerSquareMeter
     )
     {
         var property = new Property(
             Guid.NewGuid(),
             userId,
             companyId,
-            name,
-            description,
             price,
             address,
             PropertyType.House
         );
-        property.House = House.Create(property.Id, Guid.NewGuid(), hasGarage);
+        property.House = House.Create(
+            property.Id,
+            hasGarage,
+            hasParking,
+            numberOfRooms,
+            numberofFloors,
+            yearBuilt,
+            plotArea,
+            buildingArea,
+            pricePerSquareMeter
+        );
+        property.DatePublished = DateOnly.FromDateTime(DateTime.UtcNow);
         return property;
     }
 
     public static Property CreateApartment(
-        Guid id,
+        
         Guid userId,
         Guid companyId,
-        string name,
-        string description,
         decimal price,
         Address address,
-        bool hasParking
+        bool hasParking,
+        bool hasBalcony,
+        int floor,
+        bool hasElevator,
+        DateOnly yearBuilt,
+        decimal pricePerSquareMeter,
+        decimal livingArea,
+        int numberOfRooms,
+        int numberOfToilets
     )
     {
         var property = new Property(
             Guid.NewGuid(),
             userId,
             companyId,
-            name,
-            description,
             price,
             address,
             PropertyType.Apartment
         );
-        property.Apartment = Apartment.Create(Guid.NewGuid(), property.Id, hasParking);
+        property.Apartment = Apartment.Create(Guid.NewGuid(), hasParking,hasBalcony,floor,hasElevator,yearBuilt,pricePerSquareMeter,livingArea,numberOfRooms,numberOfToilets);
+        property.DatePublished = DateOnly.FromDateTime(DateTime.UtcNow);
         return property;
     }
 
     public static Property CreateLand(
-        Guid id,
+        
         Guid userId,
         Guid companyId,
-        string name,
-        string description,
         decimal price,
         Address address,
-        int area
+        decimal area,
+        decimal pricePerSquareMeter
     )
     {
         var property = new Property(
             Guid.NewGuid(),
             userId,
             companyId,
-            name,
-            description,
             price,
             address,
             PropertyType.Land
         );
-        property.Land = Land.Create(Guid.NewGuid(), property.Id, area);
+        property.Land = Land.Create(Guid.NewGuid(), property.Id, area, pricePerSquareMeter);
+        property.DatePublished = DateOnly.FromDateTime(DateTime.UtcNow);
         return property;
     }
 

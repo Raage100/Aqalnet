@@ -2,7 +2,6 @@ using FluentValidation;
 
 namespace Aqalnet.Application.Companies.RegisterCompany;
 
-
 internal class RegisterCompanyCommandValidator : AbstractValidator<RegisterCompanyCommand>
 {
     public RegisterCompanyCommandValidator()

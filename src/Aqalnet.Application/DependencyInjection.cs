@@ -1,7 +1,5 @@
 using Aqalnet.Application.Abstractions.Behaviors;
-
 using FluentValidation;
-
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Aqalnet.Application;

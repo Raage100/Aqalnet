@@ -13,6 +13,7 @@ public class PropertyConfiguration : IEntityTypeConfiguration<Property>
         builder.ToTable("Properties");
         builder.HasKey(x => x.Id);
 
+        builder.Property(p => p.Price).HasPrecision(18, 2);
         builder.Property(x => x.Id).ValueGeneratedNever();
 
         builder.OwnsOne(
