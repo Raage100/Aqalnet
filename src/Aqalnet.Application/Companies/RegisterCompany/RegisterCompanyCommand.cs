@@ -1,5 +1,6 @@
 using Aqalnet.Application.Abstractions.Messaging;
 using Aqalnet.Domain.Companies;
+using Aqalnet.Domain.Users;
 
 namespace Aqalnet.Application.Companies.RegisterCompany;
 
@@ -9,5 +10,7 @@ public record RegisterCompanyCommand(
     string firstName,
     string lastName,
     string email,
-    string mobileNumber
+    string mobileNumber,
+    Logo Logo,
+    ProfilePicture ProfilePicture
 ) : ICommand<Guid>;
