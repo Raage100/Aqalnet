@@ -1,10 +1,7 @@
-﻿using Aqalnet.Application.Abstractions.Caching;
-using Microsoft.Extensions.Caching.Distributed;
-using System.Buffers;
+﻿using System.Buffers;
 using System.Text.Json;
-
-
-
+using Aqalnet.Application.Abstractions.Caching;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace Aqalnet.Infrastructure.Caching;
 
@@ -28,7 +25,8 @@ internal sealed class CacheService : ICacheService
         string key,
         T value,
         TimeSpan? expiration = null,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default
+    )
     {
         byte[] bytes = Serialize(value);
 
@@ -54,4 +52,3 @@ internal sealed class CacheService : ICacheService
         return buffer.WrittenSpan.ToArray();
     }
 }
-

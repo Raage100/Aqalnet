@@ -1,11 +1,13 @@
 using Aqalnet.Api.Middleware;
 using Aqalnet.Application;
+using Aqalnet.Application.Abstractions.Data;
 using Aqalnet.Infrastructure;
-
+using Dapper;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 
 // Add services to the container.
 
@@ -38,5 +40,10 @@ app.UseCustomExceptionHandler();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHealthChecks(
+    "health",
+    new HealthCheckOptions { ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse }
+);
 
 app.Run();

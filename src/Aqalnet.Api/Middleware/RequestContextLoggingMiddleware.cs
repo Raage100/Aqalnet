@@ -1,5 +1,5 @@
-﻿
-namespace Aqalnet.Api.Middleware;
+﻿namespace Aqalnet.Api.Middleware;
+
 
 //public class RequestContextLoggingMiddleware
 //{

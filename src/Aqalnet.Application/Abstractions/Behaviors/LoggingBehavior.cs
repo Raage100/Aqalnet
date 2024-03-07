@@ -3,7 +3,6 @@ using Aqalnet.Domain.Abstractions;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-
 namespace Aqalnet.Application.Abstractions.Behaviors;
 
 public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
@@ -35,10 +34,7 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
             }
             else
             {
-                
-                
-                    _logger.LogError("Request {Request} processing with error", name);
-                
+                _logger.LogError("Request {Request} processing with error", name);
             }
 
             return result;

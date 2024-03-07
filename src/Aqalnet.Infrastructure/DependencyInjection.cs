@@ -44,16 +44,28 @@ public static class DependencyInjection
         ));
 
         AddCaching(services, configuration);
-
+        AddHealthChecks(services, configuration);
         return services;
     }
 
     public static void AddCaching(this IServiceCollection services, IConfiguration configuration)
     {
-      var connectionString = configuration.GetConnectionString("RedisCache")
-          ?? throw new ArgumentNullException(nameof(configuration));
+        var connectionString =
+            configuration.GetConnectionString("RedisCache")
+            ?? throw new ArgumentNullException(nameof(configuration));
 
         services.AddStackExchangeRedisCache(options => options.Configuration = connectionString);
         services.AddSingleton<ICacheService, CacheService>();
+    }
+
+    public static void AddHealthChecks(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
+    {
+        services
+            .AddHealthChecks()
+            .AddSqlServer(configuration.GetConnectionString("DefaultConnection")!)
+            .AddRedis(configuration.GetConnectionString("RedisCache")!);
     }
 }
