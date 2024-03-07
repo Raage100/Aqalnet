@@ -1,5 +1,6 @@
-// using Aqalnet.Domain.Abstractions;
+using Aqalnet.Domain.Abstractions;
+using Aqalnet.Domain.Users;
 
-// namespace Aqalnet.Domain.Companies;
+namespace Aqalnet.Domain.Companies;
 
-// public record CompanyCreatedDomainEvent(Guid companyId) : IDomainEvent;
+public record CompanyCreatedDomainEvent(Guid companyId, Guid userId) : IDomainEvent;

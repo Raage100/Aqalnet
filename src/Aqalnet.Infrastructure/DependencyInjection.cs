@@ -1,9 +1,11 @@
+using Aqalnet.Application.Abstractions.Caching;
 using Aqalnet.Application.Abstractions.Data;
 using Aqalnet.Application.Abstractions.Email;
 using Aqalnet.Domain.Abstractions;
 using Aqalnet.Domain.Companies;
 using Aqalnet.Domain.Propertys;
 using Aqalnet.Domain.Users;
+using Aqalnet.Infrastructure.Caching;
 using Aqalnet.Infrastructure.Data;
 using Aqalnet.Infrastructure.Email;
 using Aqalnet.Infrastructure.Repositories;
@@ -41,6 +43,17 @@ public static class DependencyInjection
             connectionString
         ));
 
+        AddCaching(services, configuration);
+
         return services;
+    }
+
+    public static void AddCaching(this IServiceCollection services, IConfiguration configuration)
+    {
+      var connectionString = configuration.GetConnectionString("RedisCache")
+          ?? throw new ArgumentNullException(nameof(configuration));
+
+        services.AddStackExchangeRedisCache(options => options.Configuration = connectionString);
+        services.AddSingleton<ICacheService, CacheService>();
     }
 }

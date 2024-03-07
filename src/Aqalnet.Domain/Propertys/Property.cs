@@ -33,8 +33,6 @@ public class Property : AggregateRoot
     public bool IsPublished { get; private set; }
     public PropertyType PropertyType { get; private set; }
 
-    
-
     public DateOnly DatePublished { get; private set; }
 
     public Guid UserId; // reference to the user who created the property
@@ -95,7 +93,6 @@ public class Property : AggregateRoot
     }
 
     public static Property CreateApartment(
-        
         Guid userId,
         Guid companyId,
         decimal price,
@@ -119,13 +116,23 @@ public class Property : AggregateRoot
             address,
             PropertyType.Apartment
         );
-        property.Apartment = Apartment.Create(Guid.NewGuid(), hasParking,hasBalcony,floor,hasElevator,yearBuilt,pricePerSquareMeter,livingArea,numberOfRooms,numberOfToilets);
+        property.Apartment = Apartment.Create(
+            Guid.NewGuid(),
+            hasParking,
+            hasBalcony,
+            floor,
+            hasElevator,
+            yearBuilt,
+            pricePerSquareMeter,
+            livingArea,
+            numberOfRooms,
+            numberOfToilets
+        );
         property.DatePublished = DateOnly.FromDateTime(DateTime.UtcNow);
         return property;
     }
 
     public static Property CreateLand(
-        
         Guid userId,
         Guid companyId,
         decimal price,

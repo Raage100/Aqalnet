@@ -16,8 +16,8 @@ public sealed class Apartment : Entity
         decimal livingArea,
         int numberOfRooms,
         int numberOfToilets
-        
-    ):base(id)
+    )
+        : base(id)
     {
         PropertyId = propertyId;
         HasParking = hasParking;
@@ -29,8 +29,8 @@ public sealed class Apartment : Entity
         LivingArea = livingArea;
         NumberOfRooms = numberOfRooms;
         NumberOfToilets = numberOfToilets;
-      
     }
+
     public Guid PropertyId { get; private set; }
     public bool HasParking { get; private set; }
 
@@ -45,9 +45,8 @@ public sealed class Apartment : Entity
     public int NumberOfRooms { get; private set; }
     public int NumberOfToilets { get; private set; }
 
-   
-
-    public static Apartment Create(Guid propertyId,
+    public static Apartment Create(
+        Guid propertyId,
         bool hasParking,
         bool hasBalcony,
         int floor,
@@ -57,12 +56,22 @@ public sealed class Apartment : Entity
         decimal livingArea,
         int numberOfRooms,
         int numberOfToilets
-        )
+    )
     {
-        return new Apartment(Guid.NewGuid(), propertyId,hasParking,hasBalcony,floor,hasElevator,yearBuilt,pricePerSquareMeter,livingArea,numberOfRooms, numberOfToilets);
+        return new Apartment(
+            Guid.NewGuid(),
+            propertyId,
+            hasParking,
+            hasBalcony,
+            floor,
+            hasElevator,
+            yearBuilt,
+            pricePerSquareMeter,
+            livingArea,
+            numberOfRooms,
+            numberOfToilets
+        );
     }
 
     public Apartment() { }
-
-    
 }

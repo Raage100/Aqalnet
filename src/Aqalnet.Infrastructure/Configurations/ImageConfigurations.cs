@@ -13,6 +13,5 @@ public class ImageConfigurations : IEntityTypeConfiguration<Image>
         builder.Property(x => x.Id).ValueGeneratedNever();
         builder.Property(x => x.Url).IsRequired();
         builder.Property(x => x.Alt).IsRequired();
-
     }
 }

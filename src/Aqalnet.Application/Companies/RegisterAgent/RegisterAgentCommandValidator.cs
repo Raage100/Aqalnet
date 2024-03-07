@@ -2,8 +2,4 @@ using FluentValidation;
 
 namespace Aqalnet.Application.Companies;
 
-public class RegisterAgentCommandValidator : AbstractValidator<RegisterAgentCommand>
-{
-  
-    
-}
+public class RegisterAgentCommandValidator : AbstractValidator<RegisterAgentCommand> { }

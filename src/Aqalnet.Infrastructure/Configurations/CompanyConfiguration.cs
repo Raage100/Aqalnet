@@ -25,7 +25,7 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
             x => x.Logo,
             a =>
             {
-                a.Property(x => x.Url).HasColumnName("LogoUrl").IsRequired();
+                a.Property(x => x.Url).HasColumnName("LogoUrl");
             }
         );
     }

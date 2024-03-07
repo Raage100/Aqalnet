@@ -2,7 +2,10 @@ using Aqalnet.Api.Middleware;
 using Aqalnet.Application;
 using Aqalnet.Infrastructure;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // Add services to the container.
 
@@ -26,6 +29,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//app.UseRequestContextLogging();
+//app.UseSerilogRequestLogging();
+
+app.UseCustomExceptionHandler();
 
 app.UseAuthorization();
 

@@ -32,17 +32,18 @@ public sealed class RegisterCompanyCommandHandler : ICommandHandler<RegisterComp
         {
             return Result.Failure<Guid>(CompanyErrors.NotFound);
         }
+        //    var user = User.Create(
+        //    request.firstName,
+        //    request.lastName,
+        //    request.email,
+        //    request.mobileNumber,
+        //    request.ProfilePicture
+        //);
 
         _companyRepository.Add(company);
-        var user = User.Create(
-            request.firstName,
-            request.lastName,
-            request.email,
-            request.mobileNumber,
-            request.ProfilePicture
-        );
-        _userRepository.Add(user);
-        user.AssociateWithCompany(company.Id);
+
+        //_userRepository.Add(user);
+
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 

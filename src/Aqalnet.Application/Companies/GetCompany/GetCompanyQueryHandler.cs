@@ -29,7 +29,7 @@ public sealed class GetCompanyQueryHandler : IQueryHandler<GetCompanyQuery, Comp
         FROM Companies
         WHERE Id = @CompanyId";
 
-        var company = await connection.QueryFirstOrDefaultAsync<CompanyResponse>(
+        CompanyResponse ? company = await connection.QueryFirstOrDefaultAsync<CompanyResponse>(
             sql,
             new { request.CompanyId }
         );

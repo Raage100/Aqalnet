@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aqalnet.Domain.UnitTests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aqalnet.Api", "src\Aqalnet.Api\Aqalnet.Api.csproj", "{6A003567-5B3A-4049-A791-8CDDB8B3C917}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8D9FF53A-DB02-4DD7-866A-4B9CF024BAF6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,10 +43,6 @@ Global
 		{6A003567-5B3A-4049-A791-8CDDB8B3C917}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A003567-5B3A-4049-A791-8CDDB8B3C917}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A003567-5B3A-4049-A791-8CDDB8B3C917}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D9FF53A-DB02-4DD7-866A-4B9CF024BAF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D9FF53A-DB02-4DD7-866A-4B9CF024BAF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D9FF53A-DB02-4DD7-866A-4B9CF024BAF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D9FF53A-DB02-4DD7-866A-4B9CF024BAF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
