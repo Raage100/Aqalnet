@@ -1,3 +1,4 @@
+using System.Net.NetworkInformation;
 using Aqalnet.Application.Abstractions.Caching;
 using Aqalnet.Application.Abstractions.Data;
 using Aqalnet.Application.Abstractions.Email;
@@ -9,6 +10,7 @@ using Aqalnet.Infrastructure.Caching;
 using Aqalnet.Infrastructure.Data;
 using Aqalnet.Infrastructure.Email;
 using Aqalnet.Infrastructure.Repositories;
+using Asp.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,10 +47,11 @@ public static class DependencyInjection
 
         AddCaching(services, configuration);
         AddHealthChecks(services, configuration);
+        AddVApiVersioning(services);
         return services;
     }
 
-    public static void AddCaching(this IServiceCollection services, IConfiguration configuration)
+    private static void AddCaching(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString =
             configuration.GetConnectionString("RedisCache")
@@ -58,7 +61,7 @@ public static class DependencyInjection
         services.AddSingleton<ICacheService, CacheService>();
     }
 
-    public static void AddHealthChecks(
+    private static void AddHealthChecks(
         this IServiceCollection services,
         IConfiguration configuration
     )
@@ -67,5 +70,22 @@ public static class DependencyInjection
             .AddHealthChecks()
             .AddSqlServer(configuration.GetConnectionString("DefaultConnection")!)
             .AddRedis(configuration.GetConnectionString("RedisCache")!);
+    }
+
+    private static void AddVApiVersioning(this IServiceCollection services)
+    {
+        services
+            .AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1);
+                options.ReportApiVersions = true;
+                options.ApiVersionReader = new UrlSegmentApiVersionReader();
+            })
+            .AddMvc()
+            .AddApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'V";
+                options.SubstituteApiVersionInUrl = true;
+            });
     }
 }

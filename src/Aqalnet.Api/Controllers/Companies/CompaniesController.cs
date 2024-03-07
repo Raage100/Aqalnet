@@ -1,12 +1,14 @@
 using Aqalnet.Application.Companies.GetCompany;
 using Aqalnet.Application.Companies.RegisterCompany;
+using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aqalnet.Api.Controllers.Companies;
 
-[Route("api/[controller]")]
 [ApiController]
+[ApiVersion(ApiVersions.V1)]
+[Route("api/v{version:apiVersion}/companies")]
 public class CompaniesController : ControllerBase
 {
     private readonly ISender _sender;
@@ -37,6 +39,6 @@ public class CompaniesController : ControllerBase
     {
         var result = await _sender.Send(command, cancellationToken);
 
-        return CreatedAtAction(nameof(GetCompany), new { id = result.Value }, result.Value);
+        return result.IsFailure ? BadRequest(result.Error) : Ok(result.Value);
     }
 }
