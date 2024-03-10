@@ -23,8 +23,9 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        await PublishDomainEventAsync();
         var result = await base.SaveChangesAsync(cancellationToken);
+        await PublishDomainEventAsync();
+        
 
         return result;
     }

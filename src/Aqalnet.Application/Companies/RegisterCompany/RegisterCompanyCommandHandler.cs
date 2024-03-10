@@ -27,22 +27,15 @@ public sealed class RegisterCompanyCommandHandler : ICommandHandler<RegisterComp
         CancellationToken cancellationToken
     )
     {
-        var company = Company.Create(request.CompanyName, request.Address, request.Logo);
+        var company = Company.Create(request.CompanyName, request.Address, request.Logo, request.firstName, request.lastName,request.email,request.mobileNumber, request.ProfilePicture);
         if (company is null)
         {
             return Result.Failure<Guid>(CompanyErrors.NotFound);
         }
-        //    var user = User.Create(
-        //    request.firstName,
-        //    request.lastName,
-        //    request.email,
-        //    request.mobileNumber,
-        //    request.ProfilePicture
-        //);
 
         _companyRepository.Add(company);
 
-        //_userRepository.Add(user);
+       
 
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);

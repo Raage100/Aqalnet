@@ -10,7 +10,7 @@ public static class ApplicationBuilderExtensions
         using var scope = app.ApplicationServices.CreateScope();
 
         using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        // dbContext.Database.Migrate();
+        dbContext.Database.Migrate();
     }
 
     public static void UseCustomExceptionHandler(this IApplicationBuilder app)

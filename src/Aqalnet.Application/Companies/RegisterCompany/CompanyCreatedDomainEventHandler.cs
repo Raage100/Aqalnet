@@ -1,4 +1,5 @@
 using Aqalnet.Application.Abstractions.Email;
+using Aqalnet.Domain.Abstractions;
 using Aqalnet.Domain.Companies;
 using Aqalnet.Domain.Users;
 using MediatR;
@@ -10,45 +11,38 @@ public sealed class CompanyCreatedDomainEventHandler
 {
     private IUserRepository _userRepository;
     private ICompanyRepository _companyRepository;
-    private IEmailService _emailService;
+  
+    private readonly IUnitOfWork _unitOfWork;
 
     public CompanyCreatedDomainEventHandler(
         IUserRepository userRepository,
-        IEmailService emailService,
-        ICompanyRepository companyRepository
+        ICompanyRepository companyRepository,
+        IUnitOfWork unitOfWork
+
     )
     {
         _userRepository = userRepository;
         _companyRepository = companyRepository;
-        _emailService = emailService;
+        _unitOfWork = unitOfWork;
     }
 
-    public async Task Handle(
-        CompanyCreatedDomainEvent notification,
-        CancellationToken cancellationToken
-    )
+    public async Task Handle(CompanyCreatedDomainEvent notification, CancellationToken cancellationToken)
     {
-        var company = await _companyRepository.GetByIdAsync(
-            notification.companyId,
-            cancellationToken
+
+        var company = await
+            _companyRepository.GetByIdAsync(notification.companyId);
+        var user = User.CreateAdminUser(
+            notification.firstName,
+            notification.lastName,
+            notification.email,
+            notification.mobilePhone,
+            notification.profilePicture,
+            notification.companyId
+            
         );
-
-        if (company == null)
-        {
-            throw new ArgumentException("Company not found");
-        }
-
-        var user = await _userRepository.GetByIdAsync(notification.userId, cancellationToken);
-        user.AssociateWithCompany(company.Id);
-
-        //send email here to the company admin
+        _userRepository.Add(user);
+      await  _unitOfWork.SaveChangesAsync(cancellationToken);
 
 
-
-
-
-        await Task.CompletedTask;
-
-        return;
     }
 }

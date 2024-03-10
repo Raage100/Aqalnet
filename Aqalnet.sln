@@ -17,6 +17,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aqalnet.Domain.UnitTests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aqalnet.Api", "src\Aqalnet.Api\Aqalnet.Api.csproj", "{6A003567-5B3A-4049-A791-8CDDB8B3C917}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{3600096A-5558-440E-B50D-F7C0DE028591}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aqalnet.Application.UnitTests", "tests\Aqalnet.Application.UnitTests\Aqalnet.Application.UnitTests.csproj", "{1FE06B88-E437-4842-B391-8397B059479E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aqalnet.Application.IntegrationTests", "tests\Aqalnet.Application.IntegrationTests\Aqalnet.Application.IntegrationTests.csproj", "{990AFFCE-3F60-4637-A46C-726CCAB5904C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +49,18 @@ Global
 		{6A003567-5B3A-4049-A791-8CDDB8B3C917}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A003567-5B3A-4049-A791-8CDDB8B3C917}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A003567-5B3A-4049-A791-8CDDB8B3C917}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3600096A-5558-440E-B50D-F7C0DE028591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3600096A-5558-440E-B50D-F7C0DE028591}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3600096A-5558-440E-B50D-F7C0DE028591}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3600096A-5558-440E-B50D-F7C0DE028591}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FE06B88-E437-4842-B391-8397B059479E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FE06B88-E437-4842-B391-8397B059479E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FE06B88-E437-4842-B391-8397B059479E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FE06B88-E437-4842-B391-8397B059479E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{990AFFCE-3F60-4637-A46C-726CCAB5904C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{990AFFCE-3F60-4637-A46C-726CCAB5904C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{990AFFCE-3F60-4637-A46C-726CCAB5904C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{990AFFCE-3F60-4637-A46C-726CCAB5904C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,5 +71,10 @@ Global
 		{A55EDF2B-DA6D-4328-8DCE-ECC4EA25A302} = {1CB9C3EB-6BA7-41B7-B6DC-9D77184808E6}
 		{B9E0FBF0-B0EE-4794-8B47-AD82F8DDB940} = {F3ADBDED-8743-4DFC-8329-D79AF8222762}
 		{6A003567-5B3A-4049-A791-8CDDB8B3C917} = {1CB9C3EB-6BA7-41B7-B6DC-9D77184808E6}
+		{1FE06B88-E437-4842-B391-8397B059479E} = {F3ADBDED-8743-4DFC-8329-D79AF8222762}
+		{990AFFCE-3F60-4637-A46C-726CCAB5904C} = {F3ADBDED-8743-4DFC-8329-D79AF8222762}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {60017D95-CFAE-45B6-AC3A-66E38DE05169}
 	EndGlobalSection
 EndGlobal

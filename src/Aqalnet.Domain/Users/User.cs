@@ -10,15 +10,18 @@ public sealed class User : AggregateRoot
         string lastName,
         string email,
         string mobileNumber,
-        ProfilePicture profilePicture
+        ProfilePicture? profilePicture = null,
+        Guid? companyId = null
     )
         : base(id)
     {
+        CompanyId = companyId;
         FirstName = firstName;
         LastName = lastName;
         Email = email;
         MobileNumber = mobileNumber;
         ProfilePicture = profilePicture;
+        CompanyId = companyId;
     }
 
     public string FirstName { get; private set; }
@@ -45,24 +48,35 @@ public sealed class User : AggregateRoot
         ProfilePicture profilePicture
     )
     {
-        var user = new User(
-            Guid.NewGuid(),
-            firstName,
-            lastName,
-            email,
-            mobileNumber,
-            profilePicture
-        );
+        var user = new User(Guid.NewGuid(), firstName, lastName, email, mobileNumber);
         user.CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow);
         user.Role = user.CompanyId == null ? Role.Regular : Role.Agent;
 
         return user;
     }
 
-    public void AssociateWithCompany(Guid companyId)
+    public static User CreateAdminUser(
+        string firstName,
+        string lastName,
+        string email,
+        string mobileNumber,
+        ProfilePicture profilePicture,
+        Guid companyId
+    )
     {
-        CompanyId = companyId;
-        Role = Role.Admin;
+        var user = new User(
+            Guid.NewGuid(),
+            firstName,
+            lastName,
+            email,
+            mobileNumber,
+            profilePicture,
+            companyId
+        );
+        user.CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow);
+        user.Role = Role.Agent;
+
+        return user;
     }
 
     public User() { }

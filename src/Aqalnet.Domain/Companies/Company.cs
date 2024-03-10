@@ -1,4 +1,5 @@
 using Aqalnet.Domain.Abstractions;
+using Aqalnet.Domain.Users;
 
 namespace Aqalnet.Domain.Companies;
 
@@ -21,10 +22,28 @@ public sealed class Company : AggregateRoot
 
     public Logo? Logo { get; private set; }
 
-    public static Company Create(string companyName, Address address, Logo logo)
+    public static Company Create(
+        string companyName,
+        Address address,
+        Logo logo,
+        string firstName,
+        string lastName,
+        string email,
+        string mobilePhone,
+        ProfilePicture profilePicture
+    )
     {
         var company = new Company(Guid.NewGuid(), companyName, address, logo);
-        // company.RaiseDomainEvent(new CompanyCreatedDomainEvent(company.Id, UserId));
+        company.RaiseDomainEvent(
+            new CompanyCreatedDomainEvent(
+                company.Id,
+                firstName,
+                lastName,
+                email,
+                mobilePhone,
+                profilePicture
+            )
+        );
         return company;
     }
 
