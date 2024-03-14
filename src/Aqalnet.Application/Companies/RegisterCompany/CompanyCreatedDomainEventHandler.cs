@@ -11,14 +11,13 @@ public sealed class CompanyCreatedDomainEventHandler
 {
     private IUserRepository _userRepository;
     private ICompanyRepository _companyRepository;
-  
+
     private readonly IUnitOfWork _unitOfWork;
 
     public CompanyCreatedDomainEventHandler(
         IUserRepository userRepository,
         ICompanyRepository companyRepository,
         IUnitOfWork unitOfWork
-
     )
     {
         _userRepository = userRepository;
@@ -26,11 +25,12 @@ public sealed class CompanyCreatedDomainEventHandler
         _unitOfWork = unitOfWork;
     }
 
-    public async Task Handle(CompanyCreatedDomainEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(
+        CompanyCreatedDomainEvent notification,
+        CancellationToken cancellationToken
+    )
     {
-
-        var company = await
-            _companyRepository.GetByIdAsync(notification.companyId);
+        var company = await _companyRepository.GetByIdAsync(notification.companyId);
         var user = User.CreateAdminUser(
             notification.firstName,
             notification.lastName,
@@ -38,11 +38,8 @@ public sealed class CompanyCreatedDomainEventHandler
             notification.mobilePhone,
             notification.profilePicture,
             notification.companyId
-            
         );
         _userRepository.Add(user);
-      await  _unitOfWork.SaveChangesAsync(cancellationToken);
-
-
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
     }
 }

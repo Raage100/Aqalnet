@@ -48,7 +48,14 @@ public sealed class User : AggregateRoot
         ProfilePicture profilePicture
     )
     {
-        var user = new User(Guid.NewGuid(), firstName, lastName, email, mobileNumber);
+        var user = new User(
+            Guid.NewGuid(),
+            firstName,
+            lastName,
+            email,
+            mobileNumber,
+            profilePicture
+        );
         user.CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow);
         user.Role = user.CompanyId == null ? Role.Regular : Role.Agent;
 

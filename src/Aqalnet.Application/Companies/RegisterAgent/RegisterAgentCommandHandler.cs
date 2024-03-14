@@ -37,6 +37,11 @@ public sealed class RegisterAgentCommandHandler
         );
         _userRepository.Add(user);
         var company = await _companyRepository.GetByIdAsync(request.companyId);
+
+        if (company == null)
+        {
+            return Result.Failure<RegisterAgentReponse>(CompanyErrors.NotFound);
+        }
         var agent = Company.CreateAgent(
             request.companyId,
             request.firstName,
