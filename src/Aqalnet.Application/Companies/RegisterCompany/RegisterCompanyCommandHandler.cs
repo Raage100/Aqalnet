@@ -5,7 +5,7 @@ using Aqalnet.Domain.Users;
 
 namespace Aqalnet.Application.Companies.RegisterCompany;
 
-public sealed class RegisterCompanyCommandHandler : ICommandHandler<RegisterCompanyCommand, Guid>
+internal sealed class RegisterCompanyCommandHandler : ICommandHandler<RegisterCompanyCommand, Guid>
 {
     private readonly ICompanyRepository _companyRepository;
     private readonly IUserRepository _userRepository;

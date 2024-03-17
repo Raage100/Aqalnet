@@ -1,3 +1,4 @@
+using Aqalnet.Application.Abstractions.Clock;
 using Aqalnet.Application.Abstractions.Email;
 using Aqalnet.Domain.Abstractions;
 using Aqalnet.Domain.Companies;
@@ -13,16 +14,19 @@ public sealed class CompanyCreatedDomainEventHandler
     private ICompanyRepository _companyRepository;
 
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IDateTimeProvider _dateTimeProvider;
 
     public CompanyCreatedDomainEventHandler(
         IUserRepository userRepository,
         ICompanyRepository companyRepository,
-        IUnitOfWork unitOfWork
+        IUnitOfWork unitOfWork,
+        IDateTimeProvider dateTimeProvider
     )
     {
         _userRepository = userRepository;
         _companyRepository = companyRepository;
         _unitOfWork = unitOfWork;
+        _dateTimeProvider = dateTimeProvider;
     }
 
     public async Task Handle(
@@ -36,6 +40,7 @@ public sealed class CompanyCreatedDomainEventHandler
             notification.lastName,
             notification.email,
             notification.mobilePhone,
+            DateOnly.FromDateTime(_dateTimeProvider.UtcNow),
             notification.profilePicture,
             notification.companyId
         );

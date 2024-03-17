@@ -1,5 +1,7 @@
 using Aqalnet.Application.Companies.GetCompany;
 using Aqalnet.Application.Companies.RegisterCompany;
+using Aqalnet.Domain.Companies;
+using Aqalnet.Domain.Users;
 using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -33,10 +35,20 @@ public class CompaniesController : ControllerBase
 
     [HttpPost("RegisterCompany")]
     public async Task<IActionResult> CreateCompany(
-        RegisterCompanyCommand command,
+        RegisterCompanyRequest request,
         CancellationToken cancellationToken
     )
     {
+        var command = new RegisterCompanyCommand(
+            request.CompanyName,
+            new Address(request.Street, request.City),
+            request.FirstName,
+            request.LastName,
+            request.Email,
+            request.MobileNumber,
+            new Logo(request.logourl),
+            new ProfilePicture(request.profilePictureUrl)
+        );
         var result = await _sender.Send(command, cancellationToken);
 
         return result.IsFailure ? BadRequest(result.Error) : Ok(result.Value);

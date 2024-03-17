@@ -1,7 +1,8 @@
+using Aqalnet.Api.Middleware;
 using Aqalnet.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Aqalnet.Api.Middleware;
+namespace Aqalnet.Api.Extensions;
 
 public static class ApplicationBuilderExtensions
 {

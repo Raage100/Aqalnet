@@ -1,4 +1,5 @@
-﻿using Aqalnet.Application.Companies;
+﻿using Aqalnet.Application.Abstractions.Clock;
+using Aqalnet.Application.Companies;
 using Aqalnet.Domain.Abstractions;
 using Aqalnet.Domain.Companies;
 using Aqalnet.Domain.Users;
@@ -18,17 +19,21 @@ public class RegisterAgentTests
     private readonly ICompanyRepository _companyRepositoryMock;
     private readonly IUserRepository _userRepositoryMock;
     private IUnitOfWork _unitOfWorkMock;
+    private IDateTimeProvider _dateTimeProviderMock;
 
     public RegisterAgentTests()
     {
         _companyRepositoryMock = Substitute.For<ICompanyRepository>();
         _userRepositoryMock = Substitute.For<IUserRepository>();
         _unitOfWorkMock = Substitute.For<IUnitOfWork>();
+        _dateTimeProviderMock = Substitute.For<IDateTimeProvider>();
+        _dateTimeProviderMock.UtcNow.Returns(DateTime.UtcNow);
 
         _handler = new RegisterAgentCommandHandler(
             _companyRepositoryMock,
             _userRepositoryMock,
-            _unitOfWorkMock
+            _unitOfWorkMock,
+            _dateTimeProviderMock
         );
     }
 
@@ -58,14 +63,10 @@ public class RegisterAgentTests
             .GetByIdAsync(Command.companyId, Arg.Any<CancellationToken>())
             .Returns(company);
 
-        // Act 
+        // Act
         var result = await _handler.Handle(Command, default);
 
-        //assert 
+        //assert
         result.IsSuccess.Should().BeTrue();
     }
-
-
-   
-
 }

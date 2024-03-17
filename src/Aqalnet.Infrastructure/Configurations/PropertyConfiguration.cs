@@ -20,8 +20,8 @@ public class PropertyConfiguration : IEntityTypeConfiguration<Property>
             x => x.Address,
             a =>
             {
-                a.Property(x => x.Street).HasColumnName("Street").IsRequired();
-                a.Property(x => x.City).HasColumnName("City").IsRequired();
+                a.Property(x => x.Street).HasColumnName("street").IsRequired();
+                a.Property(x => x.City).HasColumnName("city").IsRequired();
             }
         );
 

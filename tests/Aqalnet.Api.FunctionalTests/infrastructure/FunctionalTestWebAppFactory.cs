@@ -1,8 +1,6 @@
-﻿using Aqalnet.Api.Extensions;
-using Aqalnet.Application.Abstractions.Data;
+﻿using Aqalnet.Application.Abstractions.Data;
 using Aqalnet.Infrastructure;
 using Aqalnet.Infrastructure.Data;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -10,13 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Testcontainers.PostgreSql;
 using Testcontainers.Redis;
 
-namespace Aqalnet.Application.IntegrationTests.Infrastructure;
+namespace Aqalnet.Api.FunctionalTests.infrastructure;
 
-public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
+public class FunctionalTestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
     private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
         .WithImage("postgres:latest")

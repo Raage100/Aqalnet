@@ -1,5 +1,5 @@
-using System.Net.NetworkInformation;
 using Aqalnet.Application.Abstractions.Caching;
+using Aqalnet.Application.Abstractions.Clock;
 using Aqalnet.Application.Abstractions.Data;
 using Aqalnet.Application.Abstractions.Email;
 using Aqalnet.Domain.Abstractions;
@@ -7,6 +7,7 @@ using Aqalnet.Domain.Companies;
 using Aqalnet.Domain.Propertys;
 using Aqalnet.Domain.Users;
 using Aqalnet.Infrastructure.Caching;
+using Aqalnet.Infrastructure.Clock;
 using Aqalnet.Infrastructure.Data;
 using Aqalnet.Infrastructure.Email;
 using Aqalnet.Infrastructure.Repositories;
@@ -30,10 +31,9 @@ public static class DependencyInjection
             ?? throw new ArgumentNullException(nameof(configuration));
 
         services.AddDbContext<ApplicationDbContext>(options =>
-        {
-            // sql server
-            options.UseSqlServer(connectionString);
-        });
+            options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention()
+        );
+        services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ICompanyRepository, CompanyRepository>();
@@ -68,7 +68,7 @@ public static class DependencyInjection
     {
         services
             .AddHealthChecks()
-            .AddSqlServer(configuration.GetConnectionString("DefaultConnection")!)
+            .AddNpgSql(configuration.GetConnectionString("DefaultConnection")!)
             .AddRedis(configuration.GetConnectionString("RedisCache")!);
     }
 

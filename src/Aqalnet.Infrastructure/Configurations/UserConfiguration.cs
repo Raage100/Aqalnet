@@ -19,7 +19,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             x => x.ProfilePicture,
             i =>
             {
-                i.Property(x => x.Url).HasColumnName("ProfilePictureUrl").IsRequired();
+                i.Property(x => x.Url).HasColumnName("profile_picture_url").IsRequired();
             }
         );
     }

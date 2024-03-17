@@ -18,7 +18,8 @@ public class UserTests
             UserData.LastName,
             UserData.Email,
             UserData.MobileNumber,
-            UserData.ProfilePicture
+            UserData.ProfilePicture,
+            DateOnly.FromDateTime(DateTime.UtcNow)
         );
 
         //Assert

@@ -25,7 +25,6 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
     {
         var result = await base.SaveChangesAsync(cancellationToken);
         await PublishDomainEventAsync();
-        
 
         return result;
     }

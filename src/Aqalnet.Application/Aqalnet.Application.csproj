@@ -17,5 +17,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Aqalnet.Domain\Aqalnet.Domain.csproj" />
   </ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="Aqalnet.Application.UnitTests" />
+		<InternalsVisibleTo Include="Aqalnet.ArchitecureTests" />
+	</ItemGroup>
 
 </Project>

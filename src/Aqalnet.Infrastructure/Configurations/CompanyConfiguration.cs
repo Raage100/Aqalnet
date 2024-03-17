@@ -16,8 +16,8 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
             x => x.Address,
             a =>
             {
-                a.Property(x => x.Street).HasColumnName("Street").IsRequired();
-                a.Property(x => x.City).HasColumnName("City").IsRequired();
+                a.Property(x => x.Street).HasColumnName("street").IsRequired();
+                a.Property(x => x.City).HasColumnName("city").IsRequired();
             }
         );
 
@@ -25,7 +25,7 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
             x => x.Logo,
             a =>
             {
-                a.Property(x => x.Url).HasColumnName("LogoUrl");
+                a.Property(x => x.Url).HasColumnName("logo_url");
             }
         );
     }

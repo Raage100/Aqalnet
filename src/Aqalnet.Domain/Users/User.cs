@@ -10,6 +10,7 @@ public sealed class User : AggregateRoot
         string lastName,
         string email,
         string mobileNumber,
+        DateOnly createdAt,
         ProfilePicture? profilePicture = null,
         Guid? companyId = null
     )
@@ -22,6 +23,7 @@ public sealed class User : AggregateRoot
         MobileNumber = mobileNumber;
         ProfilePicture = profilePicture;
         CompanyId = companyId;
+        CreatedAt = createdAt;
     }
 
     public string FirstName { get; private set; }
@@ -45,7 +47,8 @@ public sealed class User : AggregateRoot
         string lastName,
         string email,
         string mobileNumber,
-        ProfilePicture profilePicture
+        ProfilePicture profilePicture,
+        DateOnly createdAt
     )
     {
         var user = new User(
@@ -54,9 +57,10 @@ public sealed class User : AggregateRoot
             lastName,
             email,
             mobileNumber,
+            createdAt,
             profilePicture
         );
-        user.CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow);
+
         user.Role = user.CompanyId == null ? Role.Regular : Role.Agent;
 
         return user;
@@ -67,6 +71,7 @@ public sealed class User : AggregateRoot
         string lastName,
         string email,
         string mobileNumber,
+        DateOnly createdat,
         ProfilePicture profilePicture,
         Guid companyId
     )
@@ -77,10 +82,11 @@ public sealed class User : AggregateRoot
             lastName,
             email,
             mobileNumber,
+            createdat,
             profilePicture,
             companyId
         );
-        user.CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow);
+
         user.Role = Role.Agent;
 
         return user;

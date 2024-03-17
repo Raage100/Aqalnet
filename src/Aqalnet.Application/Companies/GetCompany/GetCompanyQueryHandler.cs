@@ -5,7 +5,7 @@ using Aqalnet.Domain.Abstractions;
 using Aqalnet.Domain.Companies;
 using Dapper;
 
-public sealed class GetCompanyQueryHandler : IQueryHandler<GetCompanyQuery, CompanyResponse>
+internal sealed class GetCompanyQueryHandler : IQueryHandler<GetCompanyQuery, CompanyResponse>
 {
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
@@ -23,11 +23,11 @@ public sealed class GetCompanyQueryHandler : IQueryHandler<GetCompanyQuery, Comp
 
         const string sql =
             @"
-        SELECT 
-            Id,
-            CompanyName
-        FROM Companies
-        WHERE Id = @CompanyId";
+          SELECT 
+          id AS Id,
+          company_name AS CompanyName
+          FROM public.""Companies""
+          WHERE id = @CompanyId";
 
         CompanyResponse? company = await connection.QueryFirstOrDefaultAsync<CompanyResponse>(
             sql,

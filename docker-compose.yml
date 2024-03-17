@@ -11,15 +11,16 @@ services:
       - aqalnet.db
 
   aqalnet.db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: postgres:latest
     container_name: Aqalnet.Db
     ports:
-       - 8001:1433
+       - 5432:5432
     environment:
-       - ACCEPT_EULA=Y
-       - SA_PASSWORD=Admin@123
+       - POSTGRES_DB=AqalnetDb
+       - POSTGRES_USER=postgres
+       - POSTGRES_PASSWORD=postgres
     volumes:
-      - db-data:/var/opt/mssql
+      - db-data:/var/lib/postgresql/data
 
   aqalnet.redis:
     image: redis:latest

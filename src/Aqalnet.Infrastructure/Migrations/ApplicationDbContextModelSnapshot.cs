@@ -3,8 +3,8 @@ using System;
 using Aqalnet.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -18,59 +18,72 @@ namespace Aqalnet.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.2")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Aqalnet.Domain.Companies.Agent", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<Guid>("CompanyId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("company_id");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("email");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("first_name");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("last_name");
 
                     b.Property<string>("MobileNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("mobile_number");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("title");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_agent");
 
-                    b.HasIndex("CompanyId");
+                    b.HasIndex("CompanyId")
+                        .HasDatabaseName("ix_agent_company_id");
 
-                    b.ToTable("Agent");
+                    b.ToTable("agent", (string)null);
                 });
 
             modelBuilder.Entity("Aqalnet.Domain.Companies.Company", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("company_name");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_companies");
 
                     b.ToTable("Companies", (string)null);
                 });
@@ -78,44 +91,57 @@ namespace Aqalnet.Infrastructure.Migrations
             modelBuilder.Entity("Aqalnet.Domain.Propertys.Apartment", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<Guid>("PropertyId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("property_id");
 
                     b.Property<int>("Floor")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("floor");
 
                     b.Property<bool>("HasBalcony")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("has_balcony");
 
                     b.Property<bool>("HasElevator")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("has_elevator");
 
                     b.Property<bool>("HasParking")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("has_parking");
 
                     b.Property<decimal>("LivingArea")
                         .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("living_area");
 
                     b.Property<int>("NumberOfRooms")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("number_of_rooms");
 
                     b.Property<int>("NumberOfToilets")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("number_of_toilets");
 
                     b.Property<decimal>("PricePerSquareMeter")
                         .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("price_per_square_meter");
 
                     b.Property<DateOnly>("YearBuilt")
-                        .HasColumnType("date");
+                        .HasColumnType("date")
+                        .HasColumnName("year_built");
 
-                    b.HasKey("Id", "PropertyId");
+                    b.HasKey("Id", "PropertyId")
+                        .HasName("pk_apartments");
 
                     b.HasIndex("Id")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasDatabaseName("ix_apartments_id");
 
                     b.ToTable("Apartments", (string)null);
                 });
@@ -123,42 +149,54 @@ namespace Aqalnet.Infrastructure.Migrations
             modelBuilder.Entity("Aqalnet.Domain.Propertys.House", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<Guid>("PropertyId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("property_id");
 
                     b.Property<decimal>("BuildingArea")
                         .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("building_area");
 
                     b.Property<bool>("HasGarage")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("has_garage");
 
                     b.Property<bool>("HasParking")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("has_parking");
 
                     b.Property<int>("NumberOfFloors")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("number_of_floors");
 
                     b.Property<int>("NumberOfRooms")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("number_of_rooms");
 
                     b.Property<decimal>("PlotArea")
                         .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("plot_area");
 
                     b.Property<decimal>("PricePerSquareMeter")
                         .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("price_per_square_meter");
 
                     b.Property<DateOnly>("YearBuilt")
-                        .HasColumnType("date");
+                        .HasColumnType("date")
+                        .HasColumnName("year_built");
 
-                    b.HasKey("Id", "PropertyId");
+                    b.HasKey("Id", "PropertyId")
+                        .HasName("pk_houses");
 
                     b.HasIndex("Id")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasDatabaseName("ix_houses_id");
 
                     b.ToTable("Houses", (string)null);
                 });
@@ -166,30 +204,38 @@ namespace Aqalnet.Infrastructure.Migrations
             modelBuilder.Entity("Aqalnet.Domain.Propertys.Image", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<string>("Alt")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("alt");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("description");
 
                     b.Property<Guid>("PropertyId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("property_id");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("title");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("url");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_images");
 
-                    b.HasIndex("PropertyId");
+                    b.HasIndex("PropertyId")
+                        .HasDatabaseName("ix_images_property_id");
 
                     b.ToTable("Images", (string)null);
                 });
@@ -197,23 +243,29 @@ namespace Aqalnet.Infrastructure.Migrations
             modelBuilder.Entity("Aqalnet.Domain.Propertys.Land", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<Guid>("PropertyId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("property_id");
 
                     b.Property<decimal>("Area")
                         .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("area");
 
                     b.Property<decimal>("PricePerSquareMeter")
                         .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("price_per_square_meter");
 
-                    b.HasKey("Id", "PropertyId");
+                    b.HasKey("Id", "PropertyId")
+                        .HasName("pk_lands");
 
                     b.HasIndex("Id")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasDatabaseName("ix_lands_id");
 
                     b.ToTable("Lands", (string)null);
                 });
@@ -221,32 +273,42 @@ namespace Aqalnet.Infrastructure.Migrations
             modelBuilder.Entity("Aqalnet.Domain.Propertys.Property", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<Guid?>("CompanyId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("company_id");
 
                     b.Property<DateOnly>("DatePublished")
-                        .HasColumnType("date");
+                        .HasColumnType("date")
+                        .HasColumnName("date_published");
 
                     b.Property<bool>("IsPublished")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_published");
 
                     b.Property<decimal>("Price")
                         .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("price");
 
                     b.Property<int>("PropertyType")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("property_type");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_properties");
 
-                    b.HasIndex("CompanyId");
+                    b.HasIndex("CompanyId")
+                        .HasDatabaseName("ix_properties_company_id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_properties_user_id");
 
                     b.ToTable("Properties", (string)null);
                 });
@@ -255,42 +317,54 @@ namespace Aqalnet.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<Guid?>("CompanyId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("company_id");
 
                     b.Property<DateOnly>("CreatedAt")
-                        .HasColumnType("date");
+                        .HasColumnType("date")
+                        .HasColumnName("created_at");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("email");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("first_name");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("last_name");
 
                     b.Property<string>("MobileNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("mobile_number");
 
                     b.Property<int>("Role")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("role");
 
                     b.Property<DateOnly?>("UpdatedAt")
-                        .HasColumnType("date");
+                        .HasColumnType("date")
+                        .HasColumnName("updated_at");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_users");
 
-                    b.HasIndex("CompanyId");
+                    b.HasIndex("CompanyId")
+                        .HasDatabaseName("ix_users_company_id");
 
                     b.ToTable("Users", (string)null);
                 });
@@ -301,7 +375,8 @@ namespace Aqalnet.Infrastructure.Migrations
                         .WithMany("Agents")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_agent_company_company_id");
                 });
 
             modelBuilder.Entity("Aqalnet.Domain.Companies.Company", b =>
@@ -309,42 +384,46 @@ namespace Aqalnet.Infrastructure.Migrations
                     b.OwnsOne("Aqalnet.Domain.Companies.Address", "Address", b1 =>
                         {
                             b1.Property<Guid>("CompanyId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("uuid")
+                                .HasColumnName("id");
 
                             b1.Property<string>("City")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("City");
+                                .HasColumnType("text")
+                                .HasColumnName("city");
 
                             b1.Property<string>("Street")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Street");
+                                .HasColumnType("text")
+                                .HasColumnName("street");
 
                             b1.HasKey("CompanyId");
 
                             b1.ToTable("Companies");
 
                             b1.WithOwner()
-                                .HasForeignKey("CompanyId");
+                                .HasForeignKey("CompanyId")
+                                .HasConstraintName("fk_companies_companies_id");
                         });
 
                     b.OwnsOne("Aqalnet.Domain.Companies.Logo", "Logo", b1 =>
                         {
                             b1.Property<Guid>("CompanyId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("uuid")
+                                .HasColumnName("id");
 
                             b1.Property<string>("Url")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("LogoUrl");
+                                .HasColumnType("text")
+                                .HasColumnName("logo_url");
 
                             b1.HasKey("CompanyId");
 
                             b1.ToTable("Companies");
 
                             b1.WithOwner()
-                                .HasForeignKey("CompanyId");
+                                .HasForeignKey("CompanyId")
+                                .HasConstraintName("fk_companies_companies_id");
                         });
 
                     b.Navigation("Address")
@@ -357,14 +436,16 @@ namespace Aqalnet.Infrastructure.Migrations
                 {
                     b.HasOne("Aqalnet.Domain.Propertys.Property", null)
                         .WithOne("Apartment")
-                        .HasForeignKey("Aqalnet.Domain.Propertys.Apartment", "Id");
+                        .HasForeignKey("Aqalnet.Domain.Propertys.Apartment", "Id")
+                        .HasConstraintName("fk_apartments_properties_id");
                 });
 
             modelBuilder.Entity("Aqalnet.Domain.Propertys.House", b =>
                 {
                     b.HasOne("Aqalnet.Domain.Propertys.Property", null)
                         .WithOne("House")
-                        .HasForeignKey("Aqalnet.Domain.Propertys.House", "Id");
+                        .HasForeignKey("Aqalnet.Domain.Propertys.House", "Id")
+                        .HasConstraintName("fk_houses_properties_id");
                 });
 
             modelBuilder.Entity("Aqalnet.Domain.Propertys.Image", b =>
@@ -373,49 +454,55 @@ namespace Aqalnet.Infrastructure.Migrations
                         .WithMany("_images")
                         .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_images_properties_property_id");
                 });
 
             modelBuilder.Entity("Aqalnet.Domain.Propertys.Land", b =>
                 {
                     b.HasOne("Aqalnet.Domain.Propertys.Property", null)
                         .WithOne("Land")
-                        .HasForeignKey("Aqalnet.Domain.Propertys.Land", "Id");
+                        .HasForeignKey("Aqalnet.Domain.Propertys.Land", "Id")
+                        .HasConstraintName("fk_lands_properties_id");
                 });
 
             modelBuilder.Entity("Aqalnet.Domain.Propertys.Property", b =>
                 {
                     b.HasOne("Aqalnet.Domain.Companies.Company", null)
                         .WithMany()
-                        .HasForeignKey("CompanyId");
+                        .HasForeignKey("CompanyId")
+                        .HasConstraintName("fk_properties_companies_company_id");
 
                     b.HasOne("Aqalnet.Domain.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_properties_user_user_id");
 
                     b.OwnsOne("Aqalnet.Domain.Propertys.Address", "Address", b1 =>
                         {
                             b1.Property<Guid>("PropertyId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("uuid")
+                                .HasColumnName("id");
 
                             b1.Property<string>("City")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("City");
+                                .HasColumnType("text")
+                                .HasColumnName("city");
 
                             b1.Property<string>("Street")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Street");
+                                .HasColumnType("text")
+                                .HasColumnName("street");
 
                             b1.HasKey("PropertyId");
 
                             b1.ToTable("Properties");
 
                             b1.WithOwner()
-                                .HasForeignKey("PropertyId");
+                                .HasForeignKey("PropertyId")
+                                .HasConstraintName("fk_properties_properties_id");
                         });
 
                     b.Navigation("Address")
@@ -426,24 +513,27 @@ namespace Aqalnet.Infrastructure.Migrations
                 {
                     b.HasOne("Aqalnet.Domain.Companies.Company", null)
                         .WithMany()
-                        .HasForeignKey("CompanyId");
+                        .HasForeignKey("CompanyId")
+                        .HasConstraintName("fk_users_companies_company_id");
 
                     b.OwnsOne("Aqalnet.Domain.Users.ProfilePicture", "ProfilePicture", b1 =>
                         {
                             b1.Property<Guid>("UserId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("uuid")
+                                .HasColumnName("id");
 
                             b1.Property<string>("Url")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("ProfilePictureUrl");
+                                .HasColumnType("text")
+                                .HasColumnName("profile_picture_url");
 
                             b1.HasKey("UserId");
 
                             b1.ToTable("Users");
 
                             b1.WithOwner()
-                                .HasForeignKey("UserId");
+                                .HasForeignKey("UserId")
+                                .HasConstraintName("fk_users_users_id");
                         });
 
                     b.Navigation("ProfilePicture");

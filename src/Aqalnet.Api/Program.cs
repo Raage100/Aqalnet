@@ -1,12 +1,9 @@
-using Aqalnet.Api.Middleware;
+using Aqalnet.Api.Extensions;
 using Aqalnet.Api.OpenApi;
 using Aqalnet.Application;
-using Aqalnet.Application.Abstractions.Data;
 using Aqalnet.Infrastructure;
-using Dapper;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +35,8 @@ if (app.Environment.IsDevelopment())
         }
     });
     app.ApplyMigrations();
+
+    app.SeedData();
 }
 
 app.UseHttpsRedirection();
