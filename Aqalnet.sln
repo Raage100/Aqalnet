@@ -21,11 +21,12 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aqalnet.Application.UnitTests", "tests\Aqalnet.Application.UnitTests\Aqalnet.Application.UnitTests.csproj", "{1FE06B88-E437-4842-B391-8397B059479E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aqalnet.Application.IntegrationTests", "tests\Aqalnet.Application.IntegrationTests\Aqalnet.Application.IntegrationTests.csproj", "{990AFFCE-3F60-4637-A46C-726CCAB5904C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aqalnet.ArchitectureTests", "tests\Aqalnet.ArchitectureTests\Aqalnet.ArchitectureTests.csproj", "{23ED7EBD-EC4B-4404-B0B0-B26C56A1A093}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aqalnet.Api.FunctionalTests", "tests\Aqalnet.Api.FunctionalTests\Aqalnet.Api.FunctionalTests.csproj", "{A49E3304-AA2E-4A81-8778-E10270AA0020}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aqalnet.ArchitectureTests", "tests\Aqalnet.ArchitectureTests\Aqalnet.ArchitectureTests.csproj", "{23ED7EBD-EC4B-4404-B0B0-B26C56A1A093}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5F1E26A1-9C89-4CA8-9F03-6BFF52DB2DBA}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,14 +62,6 @@ Global
 		{1FE06B88-E437-4842-B391-8397B059479E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FE06B88-E437-4842-B391-8397B059479E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FE06B88-E437-4842-B391-8397B059479E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{990AFFCE-3F60-4637-A46C-726CCAB5904C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{990AFFCE-3F60-4637-A46C-726CCAB5904C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{990AFFCE-3F60-4637-A46C-726CCAB5904C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{990AFFCE-3F60-4637-A46C-726CCAB5904C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A49E3304-AA2E-4A81-8778-E10270AA0020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A49E3304-AA2E-4A81-8778-E10270AA0020}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A49E3304-AA2E-4A81-8778-E10270AA0020}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A49E3304-AA2E-4A81-8778-E10270AA0020}.Release|Any CPU.Build.0 = Release|Any CPU
 		{23ED7EBD-EC4B-4404-B0B0-B26C56A1A093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{23ED7EBD-EC4B-4404-B0B0-B26C56A1A093}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23ED7EBD-EC4B-4404-B0B0-B26C56A1A093}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -84,8 +77,6 @@ Global
 		{B9E0FBF0-B0EE-4794-8B47-AD82F8DDB940} = {F3ADBDED-8743-4DFC-8329-D79AF8222762}
 		{6A003567-5B3A-4049-A791-8CDDB8B3C917} = {1CB9C3EB-6BA7-41B7-B6DC-9D77184808E6}
 		{1FE06B88-E437-4842-B391-8397B059479E} = {F3ADBDED-8743-4DFC-8329-D79AF8222762}
-		{990AFFCE-3F60-4637-A46C-726CCAB5904C} = {F3ADBDED-8743-4DFC-8329-D79AF8222762}
-		{A49E3304-AA2E-4A81-8778-E10270AA0020} = {F3ADBDED-8743-4DFC-8329-D79AF8222762}
 		{23ED7EBD-EC4B-4404-B0B0-B26C56A1A093} = {F3ADBDED-8743-4DFC-8329-D79AF8222762}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

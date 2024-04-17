@@ -1,4 +1,5 @@
 using Aqalnet.Domain.Abstractions;
+using Aqalnet.Domain.Propertys.ValueObjects;
 
 namespace Aqalnet.Domain.Propertys;
 
@@ -7,14 +8,12 @@ public sealed class House : Entity
     private House(
         Guid id,
         Guid propertyId,
-        bool hasGarage,
-        bool hasParking,
-        int numberOfRooms,
-        int numberOfFloors,
-        DateOnly yearBuilt,
-        decimal plotArea,
-        decimal buildingArea,
-        decimal pricePerSquareMeter
+        HasGarage hasGarage,
+        HasParking hasParking,
+        NumberOfRooms numberOfRooms,
+        NumberOfFloors numberOfFloors,
+        NumberOfToilets numberOfToilets,
+        YearBuilt yearBuilt
     )
         : base(id)
     {
@@ -23,33 +22,29 @@ public sealed class House : Entity
         HasParking = hasParking;
         NumberOfRooms = numberOfRooms;
         NumberOfFloors = numberOfFloors;
+        NumberOfToilets = numberOfToilets;
         YearBuilt = yearBuilt;
-        PlotArea = plotArea;
-        BuildingArea = buildingArea;
-        PricePerSquareMeter = pricePerSquareMeter;
     }
 
-    public Guid PropertyId { get; private set; }
-    public bool HasGarage { get; private set; }
-    public bool HasParking { get; private set; }
+    public HasGarage HasGarage { get; private set; }
+    public HasParking HasParking { get; private set; }
+    public NumberOfRooms NumberOfRooms { get; private set; }
+    public NumberOfFloors NumberOfFloors { get; private set; }
 
-    public int NumberOfRooms { get; private set; }
-    public int NumberOfFloors { get; private set; }
-    public DateOnly YearBuilt { get; private set; }
-    public decimal PlotArea { get; private set; }
-    public decimal BuildingArea { get; private set; }
-    public decimal PricePerSquareMeter { get; set; }
+    public NumberOfToilets NumberOfToilets { get; private set; }
+    public YearBuilt YearBuilt { get; private set; }
+
+    public Guid PropertyId { get; private set; } // Foreign Key to Property
+    public Property Property { get; private set; }
 
     public static House Create(
         Guid propertyId,
-        bool hasGarage,
-        bool hasParking,
-        int numberOfRooms,
-        int numberofFloors,
-        DateOnly yearBuilt,
-        decimal plotArea,
-        decimal buildingArea,
-        decimal pricePerSquareMeter
+        HasGarage hasGarage,
+        HasParking hasParking,
+        NumberOfRooms numberOfRooms,
+        NumberOfFloors numberOfFloors,
+        NumberOfToilets numberOfToilets,
+        YearBuilt yearBuilt
     )
     {
         return new House(
@@ -58,11 +53,9 @@ public sealed class House : Entity
             hasGarage,
             hasParking,
             numberOfRooms,
-            numberofFloors,
-            yearBuilt,
-            plotArea,
-            buildingArea,
-            pricePerSquareMeter
+            numberOfFloors,
+            numberOfToilets,
+            yearBuilt
         );
     }
 

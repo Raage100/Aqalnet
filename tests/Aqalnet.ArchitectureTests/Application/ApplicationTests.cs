@@ -25,7 +25,7 @@ public class ApplicationTests : BaseTest
     }
 
     [Fact]
-    public void CommandHandler_Should_NotBePublic()
+    public void CommandHandler_Should_NotPublic()
     {
         var result = Types
             .InAssembly(ApplicationAssembly)
@@ -33,6 +33,20 @@ public class ApplicationTests : BaseTest
             .ImplementInterface(typeof(ICommandHandler<>))
             .Or()
             .ImplementInterface(typeof(ICommandHandler<,>))
+            .Should()
+            .NotBePublic()
+            .GetResult();
+
+        result.IsSuccessful.Should().BeTrue();
+    }
+
+    [Fact]
+    public void QueryHandler_Should_NotBePublic()
+    {
+        var result = Types
+            .InAssembly(ApplicationAssembly)
+            .That()
+            .ImplementInterface(typeof(IQueryHandler<,>))
             .Should()
             .NotBePublic()
             .GetResult();
@@ -55,21 +69,7 @@ public class ApplicationTests : BaseTest
     }
 
     [Fact]
-    public void QueryHandler_Should_NotBePublic()
-    {
-        var result = Types
-            .InAssembly(ApplicationAssembly)
-            .That()
-            .ImplementInterface(typeof(IQueryHandler<,>))
-            .Should()
-            .NotBePublic()
-            .GetResult();
-
-        result.IsSuccessful.Should().BeTrue();
-    }
-
-    [Fact]
-    public void Validator_ShouldHave_NameEndingWith_Validator()
+    public void Validator_ShouldHave_NamEndingWith_Validator()
     {
         var result = Types
             .InAssembly(ApplicationAssembly)
@@ -78,7 +78,6 @@ public class ApplicationTests : BaseTest
             .Should()
             .HaveNameEndingWith("Validator")
             .GetResult();
-
         result.IsSuccessful.Should().BeTrue();
     }
 
@@ -92,7 +91,6 @@ public class ApplicationTests : BaseTest
             .Should()
             .NotBePublic()
             .GetResult();
-
         result.IsSuccessful.Should().BeTrue();
     }
 }

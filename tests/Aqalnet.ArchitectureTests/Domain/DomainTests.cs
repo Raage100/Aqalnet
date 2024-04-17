@@ -36,7 +36,7 @@ public class DomainTests : BaseTest
     }
 
     [Fact]
-    public void Entities_ShouldHave_PrivateParameterlessContructur()
+    public void Entities_ShouldHave_PrivateParameterlessConstructors()
     {
         IEnumerable<Type> entityTypes = Types
             .InAssembly(DomainAssembly)

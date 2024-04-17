@@ -1,4 +1,5 @@
 using Aqalnet.Domain.Abstractions;
+using Aqalnet.Domain.Propertys.ValueObjects;
 
 namespace Aqalnet.Domain.Propertys;
 
@@ -7,55 +8,45 @@ public sealed class Apartment : Entity
     private Apartment(
         Guid id,
         Guid propertyId,
-        bool hasParking,
-        bool hasBalcony,
-        int floor,
-        bool hasElevator,
-        DateOnly yearBuilt,
-        decimal pricePerSquareMeter,
-        decimal livingArea,
-        int numberOfRooms,
-        int numberOfToilets
+        HasParking hasParking,
+        HasBalcony hasBalcony,
+        Floor floor,
+        HasElevator hasElevator,
+        YearBuilt yearBuilt,
+        NumberOfRooms numberOfRooms,
+        NumberOfToilets numberOfToilets
     )
         : base(id)
     {
-        PropertyId = propertyId;
         HasParking = hasParking;
         HasBalcony = hasBalcony;
         Floor = floor;
         HasElevator = hasElevator;
         YearBuilt = yearBuilt;
-        PricePerSquareMeter = pricePerSquareMeter;
-        LivingArea = livingArea;
         NumberOfRooms = numberOfRooms;
         NumberOfToilets = numberOfToilets;
     }
 
+    public HasParking HasParking { get; private set; }
+
+    public HasBalcony HasBalcony { get; private set; }
+    public Floor Floor { get; private set; }
+    public HasElevator HasElevator { get; private set; }
+    public YearBuilt YearBuilt { get; private set; }
+    public NumberOfRooms NumberOfRooms { get; private set; }
+    public NumberOfToilets NumberOfToilets { get; private set; }
     public Guid PropertyId { get; private set; }
-    public bool HasParking { get; private set; }
-
-    public bool HasBalcony { get; private set; }
-    public int Floor { get; private set; }
-    public bool HasElevator { get; private set; }
-    public DateOnly YearBuilt { get; private set; }
-
-    public decimal PricePerSquareMeter { get; set; }
-
-    public decimal LivingArea { get; set; }
-    public int NumberOfRooms { get; private set; }
-    public int NumberOfToilets { get; private set; }
+    public Property Property { get; private set; }
 
     public static Apartment Create(
         Guid propertyId,
-        bool hasParking,
-        bool hasBalcony,
-        int floor,
-        bool hasElevator,
-        DateOnly yearBuilt,
-        decimal pricePerSquareMeter,
-        decimal livingArea,
-        int numberOfRooms,
-        int numberOfToilets
+        HasParking hasParking,
+        HasBalcony hasBalcony,
+        Floor floor,
+        HasElevator hasElevator,
+        YearBuilt yearBuilt,
+        NumberOfRooms numberOfRooms,
+        NumberOfToilets numberOfToilets
     )
     {
         return new Apartment(
@@ -66,8 +57,6 @@ public sealed class Apartment : Entity
             floor,
             hasElevator,
             yearBuilt,
-            pricePerSquareMeter,
-            livingArea,
             numberOfRooms,
             numberOfToilets
         );

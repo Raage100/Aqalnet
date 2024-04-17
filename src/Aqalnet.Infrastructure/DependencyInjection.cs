@@ -3,7 +3,8 @@ using Aqalnet.Application.Abstractions.Clock;
 using Aqalnet.Application.Abstractions.Data;
 using Aqalnet.Application.Abstractions.Email;
 using Aqalnet.Domain.Abstractions;
-using Aqalnet.Domain.Companies;
+using Aqalnet.Domain.Cities;
+using Aqalnet.Domain.Countries;
 using Aqalnet.Domain.Propertys;
 using Aqalnet.Domain.Users;
 using Aqalnet.Infrastructure.Caching;
@@ -12,6 +13,7 @@ using Aqalnet.Infrastructure.Data;
 using Aqalnet.Infrastructure.Email;
 using Aqalnet.Infrastructure.Repositories;
 using Asp.Versioning;
+using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,14 +38,18 @@ public static class DependencyInjection
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
         services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<ICompanyRepository, CompanyRepository>();
+
         services.AddScoped<IPropertyRepository, PropertyRepository>();
+        services.AddScoped<ICountryRepository, CountryRepository>();
+        services.AddScoped<ICityRepository, CityRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
         services.AddSingleton<ISqlConnectionFactory>(_ => new SqlConnectionFactory(
             connectionString
         ));
+
+        SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
 
         AddCaching(services, configuration);
         AddHealthChecks(services, configuration);

@@ -9,7 +9,7 @@ public class UserTests
     public void Create_Should_SetPropertyValues()
     {
         // Arrange
-        //using the userdata class  for Arrange
+        //using the userdata class for Arrange
 
 
         //Act
@@ -18,8 +18,9 @@ public class UserTests
             UserData.LastName,
             UserData.Email,
             UserData.MobileNumber,
-            UserData.ProfilePicture,
-            DateOnly.FromDateTime(DateTime.UtcNow)
+            UserData.CreatedAt,
+            UserData.oid,
+            UserData.ProfilePicture
         );
 
         //Assert
@@ -27,6 +28,8 @@ public class UserTests
         user.LastName.Should().Be(UserData.LastName);
         user.Email.Should().Be(UserData.Email);
         user.MobileNumber.Should().Be(UserData.MobileNumber);
+        user.Oid.Should().Be(UserData.oid);
         user.ProfilePicture.Should().Be(UserData.ProfilePicture);
+        user.CreatedAt.Should().Be(UserData.CreatedAt);
     }
 }

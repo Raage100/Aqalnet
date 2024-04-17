@@ -1,25 +1,26 @@
 using Aqalnet.Domain.Abstractions;
+using Aqalnet.Domain.Propertys.ValueObjects;
 
 namespace Aqalnet.Domain.Propertys;
 
 public sealed class Land : Entity
 {
-    private Land(Guid id, Guid propertyId, decimal area, decimal pricePerSquareMeter)
+    private Land(Guid id, Guid propertyId, Longitude longitude, Latitude latitude)
         : base(id)
     {
         PropertyId = propertyId;
-        Area = area;
-        PricePerSquareMeter = pricePerSquareMeter;
+        Longitude = longitude;
+        Latitude = latitude;
     }
 
-    public Guid PropertyId { get; private set; }
-    public decimal Area { get; private set; }
+    public Guid PropertyId { get; private set; } // Foreign Key to Property
+    public Property Property { get; private set; }
+    public Longitude Longitude { get; private set; }
+    public Latitude Latitude { get; private set; }
 
-    public decimal PricePerSquareMeter { get; set; }
-
-    public static Land Create(Guid id, Guid propertyId, decimal area, decimal pricePerSquareMeter)
+    public static Land Create(Guid id, Guid propertyId, Longitude longitude, Latitude latitude)
     {
-        return new Land(Guid.NewGuid(), propertyId, area, pricePerSquareMeter);
+        return new Land(Guid.NewGuid(), propertyId, longitude, latitude);
     }
 
     public Land() { }
